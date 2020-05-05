@@ -2,13 +2,20 @@
     <div id="root"></div>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script type="text/javascript">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
 
         const rootElement = document.getElementById('root')
-        const element = React.createElement('div', {
-            className: 'container',
-            children: 'Hello world',
-        })
+        // const element = React.createElement('div', {
+        //   className: 'container',
+        // children: React.createElement('span', null, 'Hello', ' World'),
+        // })
+        const children = 'Hello ';
+        const worldChild = 'World';
+        const className = 'container';
+        const element = <div className={className} ><h1>{children}{worldChild} </h1>
+            <button>Click!</button>
+        </div>
         ReactDOM.render(element, rootElement)
     </script>
 </body>
