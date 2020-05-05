@@ -4,11 +4,14 @@
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
-
-        const rootElement = document.getElementById('root')
-        const helloElement = React.createElement('span', null, 'Hello ')
-        const worldElement = React.createElement('span', null, 'World ')
-        const element = React.createElement(React.Fragment, null, helloElement, worldElement)
+        const element = <>
+            <span>Hello</span>
+            <span> World</span>
+        </>
+        //const rootElement = document.getElementById('root')
+        //const helloElement = React.createElement('span', null, 'Hello ')
+        //const worldElement = React.createElement('span', null, 'World ')
+        //const element = React.createElement(React.Fragment, null, helloElement, worldElement)
         ReactDOM.render(element, document.getElementById('root'));
     </script>
 </body>
