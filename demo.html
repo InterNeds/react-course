@@ -4,12 +4,13 @@
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
-        const Message = (props) => <div className='Message'>{props.msg} </div>;
+        const Message = (props) => <div className='Message'>{props.children} </div>;
         const element = (
             <div className='container'>
                 <Message>Hello World</Message>
-                {Message({ msg: 'Hello World' })}
-                {Message({ msg: 'Goodbye World' })}
+                <Message> Hello World </Message >
+                <Message> Goodbye World</Message>
+
             </div>
         )
         ReactDOM.render(element, document.getElementById('root'));
