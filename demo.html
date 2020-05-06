@@ -1,28 +1,30 @@
 <body>
     <div id="root"></div>
+    <link type="text/css" href="styles.css" rel="stylesheet">
     <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
         const rootElement = document.getElementById('root');
-
-        function tick() {
-            const time = new Date().toLocaleTimeString();
-            const element = (
-                <div>
-                    <input value={time} />
-                    <input value={time} />
-                </div>
-
-            )
-
-
-
-            ReactDOM.render(element, rootElement);
+        function Box(props) {
+            return <div {...props} />
         }
+        const element = (
+            <div>
+                <Box className="box box--petite"
+                    style={{ "backgroundColor": "#41bedd", "margin": "10px", "fontStyle": "italic" }} >small blue box</Box>
+                <Box>
+                    <Box className="box box--medium"
+                        style={{ "backgroundColor": "pink", "margin": "10px", "fontStyle": "italic" }} >medium pink box</Box>
+                </Box>
+                <Box>
+                    <Box className="box box--large"
+                        style={{ "backgroundColor": "orange", "margin": "10px", "fontStyle": "italic" }} >large orange box</Box>
+                </Box>
+            </div>
+        )
 
-        tick();
-        setInterval(tick, 1000)
+        ReactDOM.render(element, rootElement);
     </script>
 </body>
