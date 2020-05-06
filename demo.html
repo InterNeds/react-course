@@ -5,28 +5,24 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
-        //The text "Hello World" has 11 characters
-        //The text "" has No characters.
-        function CharacterCount({ text }) {
-            //js
-            return (
+        const rootElement = document.getElementById('root');
+
+        function tick() {
+            const time = new Date().toLocaleTimeString();
+            const element = (
                 <div>
-                    {`The text "${text}"  has`}
-                    {text.length ? <strong>{text.length}</strong> : 'NO'}
-                    {' characters '}
+                    <input value={time} />
+                    <input value={time} />
                 </div>
-                //js
+
             )
+
+
+
+            ReactDOM.render(element, rootElement);
         }
 
-        const element = (
-            <>
-                <CharacterCount text="Hello World" />
-                <CharacterCount text="" />
-
-            </>
-        )
-
-        ReactDOM.render(element, document.getElementById("root"));
+        tick();
+        setInterval(tick, 1000)
     </script>
 </body>
