@@ -5,25 +5,24 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
-        const rootElement = document.getElementById('root');
-
-        function SayHello({ firstName, lastName }) {
+        //The text "Hello World" has 11 characters
+        //The text "" has No characters.
+        function CharacterCount({ text }) {
             return (
                 <div>
-                    Hello {firstName} {lastName}!
+                    {`The text "${text}"  has`} {text.length}  characters
                 </div>
-            );
+            )
         }
 
-        // prop-types creates a global variable called propTypes
-        // passing .isRequired
-        SayHello.propTypes = {
-            firstName: PropTypes.string.isRequired,
-            lastName: PropTypes.string.isRequired
-        };
+        const element = (
+            <>
+                <CharacterCount text="Hello World" />
+                <CharacterCount text="" />
 
-        const element = <SayHello firstName={false} />;
+            </>
+        )
 
-        ReactDOM.render(element, rootElement);
+        ReactDOM.render(element, document.getElementById("root"));
     </script>
 </body>
