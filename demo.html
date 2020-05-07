@@ -10,9 +10,11 @@
 
         function Greeting() {
             const [name, setName] = React.useState('')
-            const [name2, setName2] = React.useState('')
+            React.useEffect(() => {
+                window.localStorage.setItem('name', name)
+            })
+
             const handleChange = event => setName(event.target.value)
-            const handleChange2 = event => setName2(event.target.value)
             return (
                 <div>
                     <form>
@@ -20,15 +22,6 @@
                         <input onChange={handleChange} id="name" />
                     </form>
                     {name ? <strong>Hello {name} </strong> : 'Please type your name'}
-
-
-                    <div>
-                        <form>
-                            <label htmlFor="name">Name:</label>
-                            <input onChange={handleChange2} id="name" />
-                        </form>
-                        {name2 ? <strong>Hello {name2} </strong> : 'Please type your name'}
-                    </div>
                 </div>
             )
         }
