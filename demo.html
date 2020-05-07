@@ -7,21 +7,17 @@
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
         const rootElement = document.getElementById('root');
-        function Box(props) {
-            return <div {...props} />
+        function Box({ className = ' ', style, size, ...rest }) {
+            const sizeClassName = size ? `box--${size}` : '';
+            return <div className={`box ${className} ${sizeClassName}`}
+                style={{ fontStyle: 'italic', ...style }}
+                {...rest} />
         }
         const element = (
             <div>
-                <Box className="box box--petite"
-                    style={{ "backgroundColor": "#41bedd", "margin": "10px", "fontStyle": "italic" }} >small blue box</Box>
-                <Box>
-                    <Box className="box box--medium"
-                        style={{ "backgroundColor": "pink", "margin": "10px", "fontStyle": "italic" }} >medium pink box</Box>
-                </Box>
-                <Box>
-                    <Box className="box box--large"
-                        style={{ "backgroundColor": "orange", "margin": "10px", "fontStyle": "italic" }} >large orange box</Box>
-                </Box>
+                <Box size="petite" style={{ "backgroundColor": "#41bedd", "margin": "10px", }} >small blue box</Box>
+                <Box size='medium' style={{ "backgroundColor": "pink", "margin": "10px", }} >medium pink box</Box>
+                <Box size='large' style={{ "backgroundColor": "orange", "margin": "10px", }} >large orange box</Box>
             </div>
         )
 
