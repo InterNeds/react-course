@@ -7,20 +7,21 @@
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
         const rootElement = document.getElementById('root');
-        function Box({ className = ' ', style, size, ...rest }) {
-            const sizeClassName = size ? `box--${size}` : '';
-            return <div className={`box ${className} ${sizeClassName}`}
-                style={{ fontStyle: 'italic', ...style }}
-                {...rest} />
-        }
-        const element = (
-            <div>
-                <Box size="petite" style={{ "backgroundColor": "#41bedd", "margin": "10px", }} >small blue box</Box>
-                <Box size='medium' style={{ "backgroundColor": "pink", "margin": "10px", }} >medium pink box</Box>
-                <Box size='large' style={{ "backgroundColor": "orange", "margin": "10px", }} >large orange box</Box>
-            </div>
-        )
 
-        ReactDOM.render(element, rootElement);
+        function Greeting() {
+            const [name, setName] = React.useState('')
+            const handleChange = event => setName(event.target.value)
+            return (
+                <div>
+                    <form>
+                        <label htmlFor="name">Name:</label>
+                        <input onChange={handleChange} id="name" />
+                    </form>
+                    {name ? <strong>Hello {name} </strong> : 'Please type your name'}
+                </div>
+            )
+        }
+
+        ReactDOM.render(<Greeting />, rootElement);
     </script>
 </body>
