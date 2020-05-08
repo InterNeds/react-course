@@ -1,31 +1,32 @@
 <body>
     <div id="root"></div>
-    <link type="text/css" href="styles.css" rel="stylesheet">
-    <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
-    <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
-        const rootElement = document.getElementById('root');
-
         function Greeting() {
-            const [name, setName] = React.useState('')
-            React.useEffect(() => {
-                window.localStorage.setItem('name', name)
-            })
+            const [name, setName] = React.useState(
+                //  React allows us to specify a function instead of an actual value, and then it will only call that function when it needs to – on the initial render.
 
-            const handleChange = event => setName(event.target.value)
+                () => window.localStorage.getItem('name') || ''
+            );
+            React.useEffect(() => {
+                window.localStorage.setItem('name', name);
+            });
+
+            const handleChange = event => setName(event.target.value);
+
             return (
                 <div>
                     <form>
-                        <label htmlFor="name">Name:</label>
-                        <input onChange={handleChange} id="name" />
+                        <label htmlFor="name">Name: </label>
+                        <input value={name} onChange={handleChange} id="name" />
                     </form>
-                    {name ? <strong>Hello {name} </strong> : 'Please type your name'}
+                    {name ? <strong>Hello {name}</strong> : 'Please type your name'}
                 </div>
-            )
+            );
         }
 
-        ReactDOM.render(<Greeting />, rootElement);
+        ReactDOM.render(<Greeting />, document.getElementById('root'));
     </script>
 </body>
