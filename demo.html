@@ -6,10 +6,12 @@
     <script type="text/babel">
         function Greeting() {
             const [name, setName] = React.useState(
-                //  React allows us to specify a function instead of an actual value, and then it will only call that function when it needs to – on the initial render.
-
-                () => window.localStorage.getItem('name') || ''
+                () => {
+                    console.log("hello");
+                    window.localStorage.getItem('name') || ''
+                }
             );
+            console.log("rendered");
             React.useEffect(() => {
                 window.localStorage.setItem('name', name);
             });
