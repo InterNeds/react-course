@@ -1,22 +1,11 @@
-.box{
-    border: 2px solid #333333;
-    display: flex;
-    flex-direction: column;
+
+body{
+    margin : 0 ;
+    display:flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     text-align: center;
+    font-size: large;
 }
 
-.box--large{
-    width: 260px;
-    height: 260px;
-}
-
-.box--medium{
-    width: 180px;
-    height: 180px;
-}
-
-.box--petite{
-    width: 90px;
-    height: 90px;
-}

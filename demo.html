@@ -1,20 +1,17 @@
 <body>
     <div id="root"></div>
+    <link type="text/css" href="styles.css" rel="stylesheet">
     <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
-        function Greeting() {
-            const [name, setName] = React.useState(
-                () => {
-                    console.log("hello");
-                    window.localStorage.getItem('name') || ''
-                }
-            );
-            console.log("rendered");
+
+        function Greeting({ color, mult }) {
+            const [name, setName] = React.useState("Miruna");
+
             React.useEffect(() => {
-                window.localStorage.setItem('name', name);
-            });
+                window.localStorage.setItem("address", name);
+            }, [name]);
 
             const handleChange = event => setName(event.target.value);
 
@@ -22,13 +19,46 @@
                 <div>
                     <form>
                         <label htmlFor="name">Name: </label>
-                        <input value={name} onChange={handleChange} id="name" />
+                        <input style={{
+                            color: color,
+                        }} value={name} onChange={handleChange} id="name" />
                     </form>
-                    {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+                    {name ? <strong>Hello {name}</strong> : 'Please type your name by ' + mult + 'times'}
                 </div>
             );
         }
 
-        ReactDOM.render(<Greeting />, document.getElementById('root'));
+        function App() {
+            const [count, setCount] = React.useState(0)
+            const [multiplier, setMult] = React.useState(1)
+            const vector = [count, 2, multiplier]
+            const result = vector.map(whatever => whatever * 10)
+
+            // lists: array
+            const shoppingList = ["patata", "leche"]
+            shoppingList[1]
+            // diccionaries
+            const diccionary = {
+                "hacker": "somebody that think about making hard things really easy",
+                "sister": "daughter tfo my parents",
+                "currentYear": 2020,
+            }
+
+            diccionary.sister
+
+
+            return (
+                <>
+                    <button onClick={() => {
+                        setCount(c => c + 1);
+                        setMult(whatever => whatever * 10);
+                    }}>{count} {multiplier} </button>
+                    <Greeting color="red" mult={multiplier} />
+
+                </>
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
