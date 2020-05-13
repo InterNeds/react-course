@@ -8,7 +8,8 @@
             function handleSubmit(event) {
                 //to not get a full refresh of the page
                 event.preventDefault();
-                console.log("submitted");
+                const username = document.querySelector('input').value;
+                alert(`You entered: ${username}`)
             }
             return (
                 <form onSubmit={handleSubmit}>
