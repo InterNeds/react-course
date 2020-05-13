@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
         function UsernameForm() {
+            const usernameInputRef = React.useRef();
             function handleSubmit(event) {
                 //to not get a full refresh of the page
                 event.preventDefault();
@@ -12,14 +13,15 @@
                 console.dir(event.target)
                 //const username = event.target[0].value;
                 //const username = event.target.elements[0].value;
-                const username = event.target.elements.usernameInput.value;
+                //const username = event.target.elements.usernameInput.value;
+                const username = usernameInputRef.current.value;
                 alert(`You entered: ${username}`)
             }
             return (
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="usernameInput">Username:</label>
-                        <input type="text" id="usernameInput" />
+                        <input ref={usernameInputRef} type="text" id="usernameInput" />
                     </div>
                     <button type="submit">Submit</button>
                 </form>
