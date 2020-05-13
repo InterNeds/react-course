@@ -5,14 +5,19 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
         function UsernameForm() {
-            function handleSubmit(event) {
-                event.preventDefault()
-                console.dir(event.target)
-            }
+            return (
+                <form>
+                    <div>
+                        <label>Username:</label>
+                        <input type="text" />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            )
         }
 
 
 
-        ReactDOM.render(<App />, document.getElementById('root'));
+        ReactDOM.render(element, document.getElementById('root'));
     </script>
 </body>
