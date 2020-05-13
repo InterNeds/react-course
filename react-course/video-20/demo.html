@@ -10,14 +10,16 @@
                 event.preventDefault();
                 //to see the properties
                 console.dir(event.target)
-                const username = event.target[0].value;
+                //const username = event.target[0].value;
+                //const username = event.target.elements[0].value;
+                const username = event.target.elements.usernameInput.value;
                 alert(`You entered: ${username}`)
             }
             return (
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>Username:</label>
-                        <input type="text" />
+                        <label htmlFor="usernameInput">Username:</label>
+                        <input type="text" id="usernameInput" />
                     </div>
                     <button type="submit">Submit</button>
                 </form>
