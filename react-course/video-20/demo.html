@@ -5,8 +5,10 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
         function UsernameForm() {
-            function handleSubmit() {
-                console.log("submitted")
+            function handleSubmit(event) {
+                //to not get a full refresh of the page
+                event.preventDefault();
+                console.log("submitted");
             }
             return (
                 <form onSubmit={handleSubmit}>
