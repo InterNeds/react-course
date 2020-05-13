@@ -8,6 +8,7 @@
             function handleSubmit(event) {
                 //to not get a full refresh of the page
                 event.preventDefault();
+                console.log(event.target)
                 const username = document.querySelector('input').value;
                 alert(`You entered: ${username}`)
             }
