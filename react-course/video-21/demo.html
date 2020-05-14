@@ -5,12 +5,13 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
         function UsernameForm() {
-            const [username, setUsername] = React.useSState('');
+            const [username, setUsername] = React.useState('');
+            const isLowerCase = username === username.toLowerCase();
+            const error = isLowerCase ? null : 'Username must be lower case'
             function handleSubmit(event) {
                 //to prevent a full refresh of the page
                 event.preventDefault();
                 //to see the properties
-                console.dir(event.target);
                 alert(`You entered: ${username}`)
             }
 
@@ -24,7 +25,8 @@
                         <label htmlFor="usernameInput">Username:</label>
                         <input type="text" id="usernameInput" onChange={handleChange} />
                     </div>
-                    <button type="submit">Submit</button>
+                    <div style={{ color: 'red' }}>{error} </div>
+                    <button disabled={Boolean(error)} type="submit">Submit</button>
                 </form>
             )
         }
