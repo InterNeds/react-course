@@ -4,10 +4,12 @@
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
+        //error boundaries must be a class
+        class errorBoundary extends React.Component {
+            render() {
+                return this.props.children
+            }
 
-        //erroe boundaries has to be class components
-        class ErrorBoundary extends React.Component {
-            render()
         }
         function Bomb() {
             throw new Error('CABOOM')
@@ -19,7 +21,10 @@
                     <div>
                         <button onClick={() => setExplode(true)}>💣💣</button>
                     </div>
-                    <div>{explode ? <Bomb /> : 'Push the button !!'} </div>
+                    <div>
+                        <errorBoundary>{explode ? <Bomb /> : 'Push the button !!'} </errorBoundary>
+
+                    </div>
                 </div>
             )
         }
