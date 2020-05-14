@@ -1,0 +1,38 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        function UsernameForm() {
+            const [username, setUsername] = React.useState('');
+            function handleSubmit(event) {
+                //to prevent a full refresh of the page
+                event.preventDefault();
+                //to see the properties
+                alert(`You entered: ${username}`)
+            }
+
+            function handleChange(event) {
+                //event.target is going to be the input
+                setUsername(event.target.value.toLowerCase())
+            }
+            return (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="usernameInput">Username:</label>
+
+                        <input type="text" id="usernameInput" onChange={handleChange} value={username}
+                        //no longer manage the state and we control the state and whatever the user types
+                        />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            )
+        }
+
+
+
+        ReactDOM.render(<UsernameForm />, document.getElementById('root'));
+    </script>
+</body>
