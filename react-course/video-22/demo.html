@@ -6,8 +6,6 @@
     <script type="text/babel">
         function UsernameForm() {
             const [username, setUsername] = React.useState('');
-            const isLowerCase = username === username.toLowerCase();
-            const error = isLowerCase ? null : 'Username must be lower case'
             function handleSubmit(event) {
                 //to prevent a full refresh of the page
                 event.preventDefault();
@@ -23,10 +21,12 @@
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="usernameInput">Username:</label>
-                        <input type="text" id="usernameInput" onChange={handleChange} value={username} />
+
+                        <input type="text" id="usernameInput" onChange={handleChange} value={username}
+                        //no longer manage the state and we control the state and whatever the user types
+                        />
                     </div>
-                    <div style={{ color: 'red' }}>{error} </div>
-                    <button disabled={Boolean(error)} type="submit">Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
             )
         }
