@@ -12,6 +12,32 @@
             { id: 'p', value: 'pear' },
         ]
 
+        function App() {
+            const [items, setItems] = React.useState(allItems)
+
+            function addItem() {
+                setItems([...items, allItems.find(i => !items.includes(i))])
+            }
+
+            function removeItem(item) {
+                setItems(items.filter(i => i !== item))
+            }
+            return (
+                <div>
+                    <button disable={items.length >= allItems.length} onClick={addItem}>add item</button>
+                    <ul style={{ listStyle: 'none', paddingLeft: 0 }} >
+                        {items.map(item => (
+                            //we go through each of item and then display it on a list
+                            <li>
+                                <button onClick={() => removeItem(item)}>remove</button>{' '}
+                                <label htmlFor={`${item.value}-input`}>{item.value} </label>{' '}
+                                <input id={`${item.value}-input`} defaultValue={item.value} ></input>
+                            </li>
+                        ))}
+                    </ul>
+                </div >
+            )
+        }
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
