@@ -14,33 +14,34 @@
             )
         }
 
-        function FavoriteAnimal() {
-            const [animal, setAnimal] = React.useState('')
+        function FavoriteAnimal({ animal, onAnimalChange }) {
             return (
                 <div>
                     <label>Favorite Animal :</label>
                     <input
                         value={animal}
-                        onChange={event => setAnimal(event.target.value)}
+                        onChange={onAnimalChange}
                     />
                 </div>
             )
         }
 
-        function Display({ name }) {
-            return <div>{`Hey ${name}, you are great! `} </div>
+        function Display({ name, animal }) {
+            return <div>{`Hey ${name}, you favorite animal os ${animal} ! `} </div>
         }
 
         function App() {
             const [name, setName] = React.useState('')
+            const [animal, setAnimal] = React.useState('')
+
             return (
                 <form>
                     <Name
                         name={name}
                         onNameChange={event => setName(event.target.value)}
                     />
-                    <FavoriteAnimal />
-                    <Display name={name} />
+                    <FavoriteAnimal animal={animal} onAnimalChange={event => setAnimal(event.target.value)} />
+                    <Display name={name} animal={animal} />
                 </form>
             )
         }
