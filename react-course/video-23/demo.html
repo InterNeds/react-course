@@ -4,8 +4,12 @@
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/babel">
-        //error boundaries must be a class
-        class errorBoundary extends React.Component {
+        //error boundaries must be a class(used to customize error handling behavior)
+        class ErrorBoundary extends React.Component {
+            state = { error: null }
+            static getDerivedStateFromError(error) {
+                return { error }
+            }
             render() {
                 return this.props.children
             }
