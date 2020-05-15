@@ -29,7 +29,9 @@
                     <ul style={{ listStyle: 'none', paddingLeft: 0 }} >
                         {items.map(item => (
                             //we go through each of item and then display it on a list
+                            //the key update the DOM
                             <li key={item.id}>
+
                                 <button onClick={() => removeItem(item)}>remove</button>{' '}
                                 <label htmlFor={`${item.value}-input`}>{item.value} </label>{' '}
                                 <input id={`${item.value}-input`} defaultValue={item.value} ></input>
