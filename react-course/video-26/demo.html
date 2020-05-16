@@ -1,0 +1,35 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
+    <script type="text/babel">
+        function PokemonInfo({ pokemonName }) {
+            return <div>Need to request info for: {pokemonName} </div>
+        }
+
+        function App() {
+            const [pokemonName, setPokemonName] = React.useState('')
+
+            function handleSubmit(event) {
+                event.preventDefault()
+                setPokemonName(event.target.elements.pokemonName.value)
+            }
+            return (
+                <div>
+                    <form onSubmit={handleSubmit} >
+                        <label htmlFor="pokemonName">Pokemon Name</label>
+                        <div>
+                            <input id="pokemonName" />
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <hr />
+                    <PokemonInfo pokemonName={pokemonName} />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
