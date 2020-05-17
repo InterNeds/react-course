@@ -6,6 +6,8 @@
     <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
     <script type="text/babel">
         function PokemonInfo({ pokemonName }) {
+            //When this is re-rendered, we're going to render the Pokémon info with 
+            //that Pokémon name, and then the Pokémon info should render our information based on that Pokémon.
             return <div>Need to request info for: {pokemonName} </div>
         }
 
@@ -13,6 +15,7 @@
             const [pokemonName, setPokemonName] = React.useState('')
 
             function handleSubmit(event) {
+                //preventDefault is called on the event when submitting the form to prevent a browser reload/refresh.
                 event.preventDefault()
                 setPokemonName(event.target.elements.pokemonName.value)
             }
@@ -29,6 +32,40 @@
                     <PokemonInfo pokemonName={pokemonName} />
                 </div>
             )
+        }
+
+        function fetchPokemon(name) {
+            const pokemonQuery = `
+            query($name:String){
+                pokemon(name: $name) {
+                    id
+                    number
+                    name
+                    attacks{
+                        special {
+                            name
+                            type
+                            damage
+                        }
+                    }
+                }
+            }
+            `;
+
+            return window
+                .fetch('https://graphql-pokemon.now.sh', {
+                    // learn more about this API here: https://graphql-pokemon.now.sh/
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        query: pokemonQuery,
+                        variables: { name }
+                    })
+                })
+                .then(r => r.json())
+                .then(response => response.data.pokemon);
         }
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
