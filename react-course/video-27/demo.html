@@ -3,53 +3,64 @@
     <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
-    <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
     <script type="text/babel">
         function PokemonInfo({ pokemonName }) {
+            // A common mistake people make is to create a state variable called `isLoading` and set that to true or false.
+            // Instead, we’ll be using a status variable which can be set to idle, pending, resolved, or rejected.
+
+            // Adding state to Pokemon status
+            const [status, setStatus] = React.useState('idle');
             const [pokemon, setPokemon] = React.useState(null);
+            // Adding state to handle errors
             const [error, setError] = React.useState(null);
 
             React.useEffect(() => {
                 if (!pokemonName) {
                     return;
                 }
-                // Calling fetchPokemon and setting state for the data
-                fetchPokemon(pokemonName).then(pokemonData => {
-                    setPokemon(pokemonData)
-                },
-                    errorData => {
-                        setError(errorData)
+                // setting the status when the data is resolved
+                setStatus('pending');
+                fetchPokemon(pokemonName).then(
+                    pokemonData => {
+                        setStatus('resolved');
+                        setPokemon(pokemonData);
                     },
+                    errorData => {
+                        setStatus('rejected');
+                        setError(errorData);
+                    }
                 );
             }, [pokemonName]);
-
-            if (!pokemonName) {
+            // this is very predictable, now that we can handle the status
+            // In order to force an error yourself, you can alter the pokemonQuery into something invalid.
+            if (status === 'idle') {
                 return 'Submit a pokemon';
             }
-            if (error) {
-                return 'Oh,no!'
+
+            if (status === 'rejected') {
+                return 'Oh no...';
             }
-            if (!pokemon) {
+
+            if (status === 'pending') {
                 return '...';
             }
-            // The effect hook called useEffect is used to fetch the data with axios from the API
-            // and to set the data in the local state of the component with the state hook's update function.
-            // The promise resolving happens with async/await.
 
-            return <pre>{JSON.stringify(pokemon, null, 2)}</pre>;
+            if (status === 'resolved') {
+                return <pre>{JSON.stringify(pokemon, null, 2)}</pre>;
+            }
         }
 
         function App() {
-            const [pokemonName, setPokemonName] = React.useState('')
+            const [pokemonName, setPokemonName] = React.useState('');
 
             function handleSubmit(event) {
-                //preventDefault is called on the event when submitting the form to prevent a browser reload/refresh.
-                event.preventDefault()
-                setPokemonName(event.target.elements.pokemonName.value)
+                event.preventDefault();
+                setPokemonName(event.target.elements.pokemonName.value);
             }
+
             return (
                 <div>
-                    <form onSubmit={handleSubmit} >
+                    <form onSubmit={handleSubmit}>
                         <label htmlFor="pokemonName">Pokemon Name</label>
                         <div>
                             <input id="pokemonName" />
@@ -59,26 +70,26 @@
                     <hr />
                     <PokemonInfo pokemonName={pokemonName} />
                 </div>
-            )
+            );
         }
 
         function fetchPokemon(name) {
             const pokemonQuery = `
-            query($name:String){
-                pokemon(name: $name) {
-                    id
-                    number
-                    nam
-                    attacks{
-                        special {
-                            name
-                            type
-                            damage
-                        }
-                    }
+          query ($name: String) {
+            pokemon(name: $name) {
+              id
+              number
+              name
+              attacks {
+                special {
+                  name
+                  type
+                  damage
                 }
+              }
             }
-            `;
+          }
+        `;
 
             return window
                 .fetch('https://graphql-pokemon.now.sh', {
@@ -95,6 +106,7 @@
                 .then(r => r.json())
                 .then(response => response.data.pokemon);
         }
+
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
