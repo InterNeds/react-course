@@ -8,13 +8,13 @@
             const [username, setUsername] = React.useState('');
             const isLowerCase = username === username.toLowerCase();
             const error = isLowerCase ? null : 'Username must be lower case'
+
             function handleSubmit(event) {
                 //to prevent a full refresh of the page
                 event.preventDefault();
                 //to see the properties
                 alert(`You entered: ${username}`)
             }
-
             function handleChange(event) {
                 //event.target is going to be the input
                 setUsername(event.target.value)
